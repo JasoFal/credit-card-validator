@@ -56,18 +56,31 @@ function luhnAlgorithm(num) {
     ccTestNumber.forEach(function (num, index) {
       if (index % 2 == 0) {
         doubledNumArray.push(doubleNumSum(num));
-        console.log(doubledNumArray, "doubledNumArray2ElectricBoogaloo");
       } else {
         doubledNumArray.push(num);
-        console.log(doubledNumArray, "doubledNumArray1");
       }
     });
-    console.log(doubledNumArray, "doubledNumArray");
-    // console.log(tempStringArray, "tempStringArray");
   }
   let doubledArraySum = doubledNumArray.reduce((a,b) => a+b, 0);
-  console.log(doubledArraySum, "doubledArraySum");
+  let finalCCCheck = doubledArraySum.toString().split("").slice(-1);
+  if (finalCCCheck == 0) {
+    return true;
+  } else {
+    return false;
+  }
+}
+// UI Logic
+function handleFormSubmission(event) {
+  event.preventDefault();
+  const cardNumberHolder = document.getElementById("typeNumber").value;
+  const creditCardValidatingGenerator = luhnAlgorithm(cardNumberHolder);
+  if (creditCardValidatingGenerator == true) {
+    document.querySelector("p#validStatement").innerText = "This is a valid credit card";
+  } else {
+    document.querySelector("p#validStatement").innerText = "Please Enter A Valid Credit Card";
+  }
 }
 
-luhnAlgorithm(4102080860435620);
-// UI Logic
+window.addEventListener("load", function() {
+  this.document.querySelector("form#user-input").addEventListener("submit", handleFormSubmission);
+});
