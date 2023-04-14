@@ -5,11 +5,11 @@ function verifyCCType(num) {
   if (ccNumberStringArray[0] == "3" && ccNumberStringArray[1] === "4" || ccNumberStringArray[1] === "7") {
     return "American Express";
   } else if (ccNumberStringArray[0] == "4") {
-    return "VISA"
+    return true
   } else if (ccNumberStringArray[0] == "5") {
-    return "Mastercard"
+    return true
   } else if (ccNumberStringArray[0] == "6") {
-    return "Discover"
+    return true
   } else {
     return false;
   }
@@ -47,11 +47,11 @@ function luhnAlgorithm(num) {
   let ccTestNumber = startingNumber.reverse().map(function (item) {
     return parseInt(item);
   });
-  let isValidCCType = verifyCCType;
-  let isValidCCNum = verifyCCNum;
+  let isValidCCType = verifyCCType(num);
+  let isValidCCNum = verifyCCNum(num);
   let doubledNumArray = [];
   if (!isValidCCType || !isValidCCNum) {
-    return "Invalid Credit Card Number";
+    return false;
   } else {
     ccTestNumber.forEach(function (num, index) {
       if (index % 2 == 0) {
